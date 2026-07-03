@@ -1,0 +1,38 @@
+# 1. Локальные данные хакатона (не пушим терабайты в репу)
+data/
+datasets/
+models/
+
+# 2. Python и виртуальные окружения
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 3. Кэши тулзов (pytest, ruff, uv)
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.uv_cache/
+
+# 4. Конфиги и секреты (API-ключи)
+.env
+.env.local
+secrets.json
+
+# 5. Защита от Vim (swap, backup, undo)
+.*.sw[a-p]
+.*.swo
+.*.sw?
+*~
+.netrwhist
+Session.vim
+tags
+*.un~
+
+# 6. Системные файлы ОС
+.DS_Store
+Thumbs.db
