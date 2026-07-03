@@ -39,3 +39,4 @@ Thumbs.db
 tests/logs/
 tests/data/
 data/
+.env
