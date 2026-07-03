@@ -3,13 +3,17 @@ data/
 datasets/
 models/
 
-# 2. Python и виртуальные окружения
+# 2. Python, виртуальные окружения и сборка
 .venv/
 env/
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.egg-info/
+*.egg
+build/
+dist/
 
 # 3. Кэши тулзов (pytest, ruff, uv)
 .pytest_cache/
@@ -38,5 +42,3 @@ tags
 Thumbs.db
 tests/logs/
 tests/data/
-data/
-.env
