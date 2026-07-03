@@ -36,3 +36,6 @@ tags
 # 6. Системные файлы ОС
 .DS_Store
 Thumbs.db
+tests/logs/
+tests/data/
+data/
