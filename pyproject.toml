@@ -1,7 +1,7 @@
 [project]
 name = "hypothesis-factory"
 version = "0.1.0"
-description = "Add your description here"
+description = "A resilient, modular AI pipeline for automated materials science research"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
