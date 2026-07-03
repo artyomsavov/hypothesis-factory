@@ -49,7 +49,7 @@ class YandexGPTCritic(BaseCritic):
             logger.warning("Yandex API ключи не заданы! Критик работать не сможет.")
 
         # Настраиваем базовый OpenAI-клиент на эндпоинт Яндекса
-        base_client = OpenAI(
+        self.base_client = OpenAI(
             api_key=self.api_key,
             base_url="https://llm.api.cloud.yandex.net/v1",
             default_headers={"Authorization": f"Api-Key {self.api_key}"},
@@ -57,7 +57,7 @@ class YandexGPTCritic(BaseCritic):
 
         # Оборачиваем клиент в Instructor
         # YandexGPT лучше работает с JSON режимом, чем с нативным Tool Calling от OpenAI
-        self.client = instructor.from_openai(base_client, mode=instructor.Mode.JSON)
+        self.client = instructor.from_openai(self.base_client, mode=instructor.Mode.JSON)
         self.model_uri = f"gpt://{self.folder_id}/yandexgpt/latest"
 
     def evaluate(
@@ -157,3 +157,12 @@ class YandexGPTCritic(BaseCritic):
                 economic_risks=["ОШИБКА: Сбой API Критика"],
                 is_valid=True,
             )
+
+    def close(self):
+        self.base_client.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()

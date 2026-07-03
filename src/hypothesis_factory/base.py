@@ -3,7 +3,9 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
+# ==========================================
 # Data Contracts
+# ==========================================
 
 
 class DocumentMetadata(BaseModel):
@@ -67,8 +69,12 @@ class Hypothesis(BaseModel):
 
 
 class HypothesisList(BaseModel):
-    """Обертка для удобного парсинга батч-генерации."""
+    """Обертка для удобного парсинга батч-генерации с обязательным CoT."""
 
+    preliminary_analysis: str = Field(
+        ...,
+        description="Пошаговый анализ: жесткое сопоставление ограничений из бизнес-цели с физическими свойствами из контекста.",
+    )
     hypotheses: List[Hypothesis]
 
 
