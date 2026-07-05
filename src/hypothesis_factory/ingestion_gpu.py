@@ -2,13 +2,13 @@ import logging
 from pathlib import Path
 from typing import List
 
-# Импорты нового GPU-пайплайна
-from docling.document_converter import DocumentConverter
 from docling.chunking import HierarchicalChunker
+from docling.document_converter import DocumentConverter
 
 from hypothesis_factory.base import BaseReader, DocumentChunk, DocumentMetadata
 
 logger = logging.getLogger(__name__)
+
 
 class GpuDoclingReader(BaseReader):
     """
@@ -17,7 +17,7 @@ class GpuDoclingReader(BaseReader):
     """
 
     def __init__(self):
-        # Инициализируем модели один раз при старте. 
+        # Инициализируем модели один раз при старте.
         # Docling под капотом использует PyTorch и автоматически загрузит веса в вашу NVIDIA 20GB.
         logger.info("Загрузка Vision-моделей в VRAM...")
         self.converter = DocumentConverter()
@@ -36,16 +36,13 @@ class GpuDoclingReader(BaseReader):
 
         try:
             logger.info(f"GPU Парсинг файла: {path.name}...")
-            
+
             # 1. Нейросетевой процессинг (Здесь работает видеокарта)
             # Модель распознает текст, таблицы, заголовки и связи между ними
             conv_result = self.converter.convert(file_path)
-            
+
             metadata = DocumentMetadata(
-                source_id=path.name,
-                source_type="article",
-                title=path.stem, 
-                authors=[]
+                source_id=path.name, source_type="article", title=path.stem, authors=[]
             )
 
             # 2. Умный семантический чанкинг
@@ -60,9 +57,7 @@ class GpuDoclingReader(BaseReader):
                     continue
 
                 chunk = DocumentChunk(
-                    chunk_id=f"{path.name}_semantic_chunk_{i + 1}",
-                    text=text,
-                    metadata=metadata
+                    chunk_id=f"{path.name}_semantic_chunk_{i + 1}", text=text, metadata=metadata
                 )
                 chunks.append(chunk)
 
